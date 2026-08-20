@@ -1,0 +1,27 @@
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+.terraform.lock.hcl.backup
+
+# Terraform variables containing secrets
+*.tfvars
+*.tfvars.json
+!*.example.tfvars
+
+# Credentials / Keys
+*.pem
+*.key
+.env
+.env.*
+credentials
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
