@@ -15,3 +15,14 @@ variable "environment" {
   type        = string
   default     = "dev"
 }
+
+variable "admin_cidr" {
+  description = "Public IP CIDR allowed to access DevOps EC2 instances"
+  type        = string
+}
+
+variable "ssh_public_key_path" {
+  description = "Local path to the SSH public key"
+  type        = string
+  default     = "~/.ssh/i27-helpdesk-aws.pub"
+}

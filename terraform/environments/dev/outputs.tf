@@ -21,3 +21,31 @@ output "private_subnet_ids" {
 output "internet_gateway_id" {
   value = module.vpc.internet_gateway_id
 }
+
+output "ubuntu_ami_id" {
+  value = data.aws_ami.ubuntu.id
+}
+
+output "jenkins_controller_public_ip" {
+  value = module.jenkins_controller.public_ip
+}
+
+output "jenkins_controller_private_ip" {
+  value = module.jenkins_controller.private_ip
+}
+
+output "jenkins_agent_public_ip" {
+  value = module.jenkins_agent.public_ip
+}
+
+output "jenkins_agent_private_ip" {
+  value = module.jenkins_agent.private_ip
+}
+
+output "sonarqube_public_ip" {
+  value = module.sonarqube.public_ip
+}
+
+output "sonarqube_private_ip" {
+  value = module.sonarqube.private_ip
+}
