@@ -25,3 +25,6 @@ credentials
 # IDE
 .vscode/
 .idea/
+
+# Generated Ansible inventory
+ansible/inventory/dev.ini

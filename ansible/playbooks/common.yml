@@ -1,0 +1,7 @@
+---
+- name: Configure common packages on DevOps hosts
+  hosts: devops
+  become: true
+
+  roles:
+    - common

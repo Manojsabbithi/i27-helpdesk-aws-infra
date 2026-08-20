@@ -1,0 +1,27 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  become: true
+
+- name: Install common packages
+  ansible.builtin.apt:
+    name:
+      - curl
+      - wget
+      - unzip
+      - git
+      - jq
+      - ca-certificates
+      - gnupg
+      - lsb-release
+      - apt-transport-https
+      - software-properties-common
+    state: present
+  become: true
+
+- name: Set timezone to UTC
+  community.general.timezone:
+    name: UTC
+  become: true
