@@ -1,0 +1,86 @@
+---
+- name: Configure vm.max_map_count for SonarQube
+  ansible.posix.sysctl:
+    name: vm.max_map_count
+    value: "524288"
+    state: present
+    reload: true
+  become: true
+
+- name: Configure fs.file-max
+  ansible.posix.sysctl:
+    name: fs.file-max
+    value: "131072"
+    state: present
+    reload: true
+  become: true
+
+- name: Create Docker keyrings directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: Download Docker repository key
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
+  become: true
+
+- name: Configure Docker repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu jammy stable"
+    filename: docker
+    state: present
+  become: true
+
+- name: Install Docker Engine
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+  become: true
+
+- name: Enable Docker service
+  ansible.builtin.systemd:
+    name: docker
+    enabled: true
+    state: started
+  become: true
+
+- name: Create SonarQube directory
+  ansible.builtin.file:
+    path: /opt/sonarqube
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: Create SonarQube Docker volumes
+  community.docker.docker_volume:
+    name: "{{ item }}"
+  loop:
+    - sonarqube_data
+    - sonarqube_logs
+    - sonarqube_extensions
+  become: true
+
+- name: Start SonarQube container
+  community.docker.docker_container:
+    name: sonarqube
+    image: sonarqube:community
+    state: started
+    restart_policy: unless-stopped
+    published_ports:
+      - "9000:9000"
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_logs:/opt/sonarqube/logs
+      - sonarqube_extensions:/opt/sonarqube/extensions
+  become: true

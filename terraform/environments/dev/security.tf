@@ -123,3 +123,27 @@ resource "aws_vpc_security_group_egress_rule" "sonarqube_outbound" {
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1"
 }
+
+# Jenkins Agent -> SonarQube
+resource "aws_vpc_security_group_ingress_rule" "sonarqube_from_jenkins_agent" {
+  security_group_id            = aws_security_group.sonarqube.id
+  referenced_security_group_id = aws_security_group.jenkins_agent.id
+
+  from_port   = 9000
+  to_port     = 9000
+  ip_protocol = "tcp"
+
+  description = "SonarQube from Jenkins Agent"
+}
+
+# SonarQube -> Jenkins Controller webhook
+resource "aws_vpc_security_group_ingress_rule" "jenkins_controller_web_from_sonarqube" {
+  security_group_id            = aws_security_group.jenkins_controller.id
+  referenced_security_group_id = aws_security_group.sonarqube.id
+
+  from_port   = 8080
+  to_port     = 8080
+  ip_protocol = "tcp"
+
+  description = "SonarQube webhook to Jenkins Controller"
+}
