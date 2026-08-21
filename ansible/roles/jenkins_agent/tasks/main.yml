@@ -2,7 +2,7 @@
 - name: Install Java 21 and Maven
   ansible.builtin.apt:
     name:
-      - openjdk-21-jre
+      - openjdk-21-jdk
       - maven
     state: present
     update_cache: true
