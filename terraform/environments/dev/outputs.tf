@@ -49,3 +49,7 @@ output "sonarqube_public_ip" {
 output "sonarqube_private_ip" {
   value = module.sonarqube.private_ip
 }
+
+output "ecr_repository_urls" {
+  value = module.ecr.repository_urls
+}
