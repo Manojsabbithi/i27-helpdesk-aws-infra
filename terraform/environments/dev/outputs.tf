@@ -53,3 +53,20 @@ output "sonarqube_private_ip" {
 output "ecr_repository_urls" {
   value = module.ecr.repository_urls
 }
+
+output "rds_endpoint" {
+  value = module.rds.endpoint
+}
+
+output "rds_port" {
+  value = module.rds.port
+}
+
+output "rds_security_group_id" {
+  value = module.rds.security_group_id
+}
+
+output "rds_master_user_secret_arn" {
+  value     = module.rds.master_user_secret_arn
+  sensitive = true
+}

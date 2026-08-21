@@ -93,3 +93,11 @@
     creates: /usr/local/aws-cli/v2/current/bin/aws
   when: not aws_cli_binary.stat.exists
   become: true
+
+- name: Install MySQL client
+  ansible.builtin.apt:
+    name:
+      - mysql-client
+    state: present
+    update_cache: true
+  become: true
