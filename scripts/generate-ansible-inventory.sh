@@ -17,6 +17,12 @@ JENKINS_AGENT_PRIVATE=$(terraform output -raw jenkins_agent_private_ip)
 SONARQUBE_PUBLIC=$(terraform output -raw sonarqube_public_ip)
 SONARQUBE_PRIVATE=$(terraform output -raw sonarqube_private_ip)
 
+if [[ -n "${SONARQUBE_PUBLIC}" ]]; then
+  SONARQUBE_INVENTORY_LINE="sonarqube ansible_host=${SONARQUBE_PUBLIC} private_ip=${SONARQUBE_PRIVATE}"
+else
+  SONARQUBE_INVENTORY_LINE=""
+fi
+
 cat > "${INVENTORY}" <<EOT
 [jenkins_controller]
 jenkins-controller ansible_host=${JENKINS_CONTROLLER_PUBLIC} private_ip=${JENKINS_CONTROLLER_PRIVATE}
@@ -25,7 +31,7 @@ jenkins-controller ansible_host=${JENKINS_CONTROLLER_PUBLIC} private_ip=${JENKIN
 jenkins-agent ansible_host=${JENKINS_AGENT_PUBLIC} private_ip=${JENKINS_AGENT_PRIVATE}
 
 [sonarqube_servers]
-sonarqube ansible_host=${SONARQUBE_PUBLIC} private_ip=${SONARQUBE_PRIVATE}
+${SONARQUBE_INVENTORY_LINE}
 
 [devops:children]
 jenkins_controller

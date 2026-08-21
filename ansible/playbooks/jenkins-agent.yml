@@ -1,0 +1,8 @@
+---
+- name: Configure Jenkins Agent
+  hosts: jenkins_agent
+  become: true
+
+  roles:
+    - common
+    - jenkins_agent

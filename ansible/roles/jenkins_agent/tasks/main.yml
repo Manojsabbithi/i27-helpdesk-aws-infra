@@ -1,0 +1,95 @@
+---
+- name: Install Java 21 and Maven
+  ansible.builtin.apt:
+    name:
+      - openjdk-21-jre
+      - maven
+    state: present
+    update_cache: true
+  become: true
+
+- name: Create Docker apt keyrings directory
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: "0755"
+  become: true
+
+- name: Download Docker GPG key
+  ansible.builtin.get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker.asc
+    mode: "0644"
+  become: true
+
+- name: Configure Docker repository
+  ansible.builtin.apt_repository:
+    repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu jammy stable"
+    filename: docker
+    state: present
+  become: true
+
+- name: Install Docker Engine
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+    state: present
+    update_cache: true
+  become: true
+
+- name: Enable and start Docker
+  ansible.builtin.systemd:
+    name: docker
+    enabled: true
+    state: started
+  become: true
+
+- name: Create Jenkins agent user
+  ansible.builtin.user:
+    name: jenkins
+    shell: /bin/bash
+    create_home: true
+    groups:
+      - docker
+    append: true
+    state: present
+  become: true
+
+- name: Add Ubuntu administrator to Docker group
+  ansible.builtin.user:
+    name: ubuntu
+    groups:
+      - docker
+    append: true
+  become: true
+
+- name: Check whether AWS CLI v2 is installed
+  ansible.builtin.stat:
+    path: /usr/local/bin/aws
+  register: aws_cli_binary
+
+- name: Download AWS CLI v2
+  ansible.builtin.get_url:
+    url: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /tmp/awscliv2.zip
+    mode: "0644"
+  when: not aws_cli_binary.stat.exists
+
+- name: Extract AWS CLI v2
+  ansible.builtin.unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp
+    remote_src: true
+  when: not aws_cli_binary.stat.exists
+  become: true
+
+- name: Install AWS CLI v2
+  ansible.builtin.command:
+    cmd: /tmp/aws/install
+    creates: /usr/local/aws-cli/v2/current/bin/aws
+  when: not aws_cli_binary.stat.exists
+  become: true
