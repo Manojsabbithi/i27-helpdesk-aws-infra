@@ -101,3 +101,13 @@
     state: present
     update_cache: true
   become: true
+
+- name: Install kubectl 1.35.6
+  ansible.builtin.get_url:
+    url: https://dl.k8s.io/release/v1.35.6/bin/linux/amd64/kubectl
+    dest: /usr/local/bin/kubectl
+    owner: root
+    group: root
+    mode: "0755"
+    checksum: "sha256:https://dl.k8s.io/release/v1.35.6/bin/linux/amd64/kubectl.sha256"
+  become: true
