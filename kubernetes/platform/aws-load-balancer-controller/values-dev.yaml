@@ -1,0 +1,9 @@
+clusterName: i27-helpdesk-dev-eks
+region: ap-south-2
+vpcId: "vpc-0a70b515095032e45"
+
+replicaCount: 1
+
+serviceAccount:
+  create: false
+  name: aws-load-balancer-controller
