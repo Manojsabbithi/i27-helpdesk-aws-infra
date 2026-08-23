@@ -1,0 +1,76 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: i27-helpdesk-gateway
+  namespace: i27-helpdesk-dev
+
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+
+    # The UI will join this same ALB later.
+    alb.ingress.kubernetes.io/group.name: i27-helpdesk-public
+    alb.ingress.kubernetes.io/group.order: "10"
+
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+
+    alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+    alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+    alb.ingress.kubernetes.io/healthcheck-path: /healthz
+    alb.ingress.kubernetes.io/success-codes: "200"
+
+    alb.ingress.kubernetes.io/tags: Project=i27-helpdesk,Environment=dev
+
+spec:
+  ingressClassName: alb
+
+  rules:
+    - http:
+        paths:
+          - path: /auth
+            pathType: Prefix
+            backend:
+              service:
+                name: i27-helpdesk-gateway
+                port:
+                  number: 80
+
+          - path: /tickets
+            pathType: Prefix
+            backend:
+              service:
+                name: i27-helpdesk-gateway
+                port:
+                  number: 80
+
+          - path: /comments
+            pathType: Prefix
+            backend:
+              service:
+                name: i27-helpdesk-gateway
+                port:
+                  number: 80
+
+          - path: /attachments
+            pathType: Prefix
+            backend:
+              service:
+                name: i27-helpdesk-gateway
+                port:
+                  number: 80
+
+          - path: /healthz
+            pathType: Exact
+            backend:
+              service:
+                name: i27-helpdesk-gateway
+                port:
+                  number: 80
+
+          - path: /readyz
+            pathType: Exact
+            backend:
+              service:
+                name: i27-helpdesk-gateway
+                port:
+                  number: 80
