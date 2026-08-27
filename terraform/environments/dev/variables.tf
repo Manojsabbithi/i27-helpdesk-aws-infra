@@ -31,3 +31,8 @@ variable "devops_ami_id" {
   description = "Pinned Ubuntu AMI for long-lived DevOps EC2 instances"
   type        = string
 }
+
+variable "alert_email" {
+  description = "Email address for infrastructure monitoring alerts"
+  type        = string
+}

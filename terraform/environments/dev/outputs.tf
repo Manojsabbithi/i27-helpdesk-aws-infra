@@ -82,3 +82,8 @@ output "eks_cluster_endpoint" {
 output "eks_cluster_security_group_id" {
   value = module.eks.cluster_security_group_id
 }
+
+output "monitoring_sns_topic_arn" {
+  description = "SNS topic used for CloudWatch monitoring alerts"
+  value       = aws_sns_topic.monitoring_alerts.arn
+}

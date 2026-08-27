@@ -11,7 +11,7 @@ output "security_group_id" {
 }
 
 output "db_instance_id" {
-  value = aws_db_instance.this.id
+  value = aws_db_instance.this.identifier
 }
 
 output "master_user_secret_arn" {
