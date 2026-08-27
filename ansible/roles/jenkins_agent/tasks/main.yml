@@ -144,3 +144,11 @@
     group: jenkins
     mode: "0600"
   become: true
+
+- name: Install Python virtual environment support
+  ansible.builtin.apt:
+    name:
+      - python3-venv
+    state: present
+    update_cache: true
+
