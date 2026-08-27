@@ -26,3 +26,8 @@ variable "ssh_public_key_path" {
   type        = string
   default     = "~/.ssh/i27-helpdesk-aws.pub"
 }
+
+variable "devops_ami_id" {
+  description = "Pinned Ubuntu AMI for long-lived DevOps EC2 instances"
+  type        = string
+}

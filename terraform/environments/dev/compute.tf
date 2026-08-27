@@ -12,7 +12,7 @@ module "jenkins_controller" {
 
   name          = "${var.project_name}-${var.environment}-jenkins-controller"
   role          = "jenkins-controller"
-  ami_id        = data.aws_ami.ubuntu.id
+  ami_id        = var.devops_ami_id
   instance_type = "t3.small"
 
   subnet_id = module.vpc.public_subnet_ids[0]
@@ -32,7 +32,7 @@ module "jenkins_agent" {
 
   name          = "${var.project_name}-${var.environment}-jenkins-agent"
   role          = "jenkins-agent"
-  ami_id        = data.aws_ami.ubuntu.id
+  ami_id        = var.devops_ami_id
   instance_type = "t3.medium"
 
   subnet_id = module.vpc.public_subnet_ids[1]
@@ -52,7 +52,7 @@ module "sonarqube" {
 
   name          = "${var.project_name}-${var.environment}-sonarqube"
   role          = "sonarqube"
-  ami_id        = data.aws_ami.ubuntu.id
+  ami_id        = var.devops_ami_id
   instance_type = "t3.medium"
 
   subnet_id = module.vpc.public_subnet_ids[0]

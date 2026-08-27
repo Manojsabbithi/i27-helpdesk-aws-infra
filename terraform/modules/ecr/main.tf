@@ -29,10 +29,10 @@ resource "aws_ecr_lifecycle_policy" "this" {
         description  = "Remove untagged images after 1 day"
 
         selection = {
-          tagStatus     = "untagged"
-          countType     = "sinceImagePushed"
-          countUnit     = "days"
-          countNumber   = 1
+          tagStatus   = "untagged"
+          countType   = "sinceImagePushed"
+          countUnit   = "days"
+          countNumber = 1
         }
 
         action = {

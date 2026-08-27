@@ -37,8 +37,8 @@ resource "aws_db_instance" "this" {
   instance_class = var.instance_class
 
   allocated_storage = var.allocated_storage
-  storage_type       = "gp3"
-  storage_encrypted  = true
+  storage_type      = "gp3"
+  storage_encrypted = true
 
   username                    = var.master_username
   manage_master_user_password = true
@@ -54,10 +54,10 @@ resource "aws_db_instance" "this" {
   backup_retention_period = 1
 
   performance_insights_enabled = false
-  monitoring_interval           = 0
+  monitoring_interval          = 0
 
   auto_minor_version_upgrade = true
-  apply_immediately           = true
+  apply_immediately          = true
 
   deletion_protection = false
   skip_final_snapshot = true

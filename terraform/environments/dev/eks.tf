@@ -17,7 +17,7 @@ module "eks" {
   node_instance_types = ["t3.medium"]
 
   desired_size = 1
-  min_size     = 1
+  min_size     = 0
   max_size     = 2
 }
 

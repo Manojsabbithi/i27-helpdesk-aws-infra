@@ -23,7 +23,7 @@ output "internet_gateway_id" {
 }
 
 output "ubuntu_ami_id" {
-  value = data.aws_ami.ubuntu.id
+  value = var.devops_ami_id
 }
 
 output "jenkins_controller_public_ip" {

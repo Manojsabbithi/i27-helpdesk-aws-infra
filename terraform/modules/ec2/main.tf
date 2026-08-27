@@ -22,6 +22,17 @@ resource "aws_instance" "this" {
     delete_on_termination = true
   }
 
+  lifecycle {
+    # Protect long-lived Jenkins/Sonar hosts from accidental replacement.
+    prevent_destroy = true
+
+    # Public IPv4 disappears while EC2 is stopped and can otherwise
+    # create misleading ForceNew drift during Terraform planning.
+    ignore_changes = [
+      associate_public_ip_address
+    ]
+  }
+
   tags = {
     Name = var.name
     Role = var.role

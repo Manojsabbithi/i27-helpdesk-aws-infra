@@ -95,6 +95,14 @@ resource "aws_eks_node_group" "this" {
     max_unavailable = 1
   }
 
+  lifecycle {
+    # desired_size is changed operationally between 0 and 1
+    # when we stop/start the development environment.
+    ignore_changes = [
+      scaling_config[0].desired_size
+    ]
+  }
+
   depends_on = [
     aws_iam_role_policy_attachment.node_worker,
     aws_iam_role_policy_attachment.node_ecr,
