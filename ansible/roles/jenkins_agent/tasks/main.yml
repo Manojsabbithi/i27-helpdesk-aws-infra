@@ -111,3 +111,36 @@
     mode: "0755"
     checksum: "sha256:https://dl.k8s.io/release/v1.35.6/bin/linux/amd64/kubectl.sha256"
   become: true
+
+- name: Create Jenkins kubeconfig directory
+  ansible.builtin.file:
+    path: /home/jenkins/.kube
+    state: directory
+    owner: jenkins
+    group: jenkins
+    mode: "0700"
+  become: true
+
+- name: Configure EKS kubeconfig for Jenkins
+  ansible.builtin.command:
+    cmd: >-
+      aws eks update-kubeconfig
+      --name {{ jenkins_agent_eks_cluster_name }}
+      --region {{ jenkins_agent_aws_region }}
+      --kubeconfig /home/jenkins/.kube/config
+  become: true
+  become_user: jenkins
+  environment:
+    HOME: /home/jenkins
+    AWS_REGION: "{{ jenkins_agent_aws_region }}"
+    AWS_DEFAULT_REGION: "{{ jenkins_agent_aws_region }}"
+  changed_when: false
+
+- name: Secure Jenkins kubeconfig
+  ansible.builtin.file:
+    path: /home/jenkins/.kube/config
+    state: file
+    owner: jenkins
+    group: jenkins
+    mode: "0600"
+  become: true

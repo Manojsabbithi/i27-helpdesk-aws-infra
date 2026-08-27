@@ -1,0 +1,4 @@
+---
+jenkins_agent_aws_region: ap-south-2
+jenkins_agent_eks_cluster_name: i27-helpdesk-dev-eks
+jenkins_agent_eks_namespace: i27-helpdesk-dev
