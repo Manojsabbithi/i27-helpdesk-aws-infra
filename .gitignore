@@ -28,3 +28,6 @@ credentials
 
 # Generated Ansible inventory
 ansible/inventory/dev.ini
+
+# Local Terraform variable backups
+*.tfvars.backup
