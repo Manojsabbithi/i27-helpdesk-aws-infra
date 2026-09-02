@@ -7,7 +7,8 @@ module "ecr" {
     "i27-helpdesk/auth-service",
     "i27-helpdesk/ticket-service",
     "i27-helpdesk/comment-service",
-    "i27-helpdesk/notification-service"
+    "i27-helpdesk/notification-service",
+    "i27-helpdesk/attachment-service"
   ]
 
   max_image_count = 10
