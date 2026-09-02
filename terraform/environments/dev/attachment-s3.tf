@@ -182,6 +182,28 @@ data "aws_iam_policy_document" "attachment_s3" {
       "${aws_s3_bucket.attachments.arn}/attachments/*"
     ]
   }
+
+  statement {
+    sid    = "AttachmentBucketList"
+    effect = "Allow"
+
+    actions = [
+      "s3:ListBucket"
+    ]
+
+    resources = [
+      aws_s3_bucket.attachments.arn
+    ]
+
+    condition {
+      test     = "StringLike"
+      variable = "s3:prefix"
+
+      values = [
+        "attachments/*"
+      ]
+    }
+  }
 }
 
 resource "aws_iam_role_policy" "attachment_s3" {
