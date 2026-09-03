@@ -31,3 +31,4 @@ ansible/inventory/dev.ini
 
 # Local Terraform variable backups
 *.tfvars.backup
+runtime/i27-current.env
