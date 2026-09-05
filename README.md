@@ -39,6 +39,20 @@ Build a production-inspired, portfolio-grade AWS DevOps platform that can:
 - FastAPI Attachment Service
 - MySQL Database
 
+## Related Application Repositories
+
+This repository contains the AWS DevOps and platform implementation for the i27 Helpdesk application. The application services are maintained in separate repositories.
+
+| Component | Repository | Technology |
+| --- | --- | --- |
+| API Gateway | [i27-helpdesk-gateway](https://github.com/Manojsabbithi/i27-helpdesk-gateway) | Node.js / JavaScript |
+| Attachment Service | [i27-helpdesk-attachment-service](https://github.com/Manojsabbithi/i27-helpdesk-attachment-service) | Python / FastAPI |
+| Ticket Service | [i27-helpdesk-ticket-service](https://github.com/Manojsabbithi/i27-helpdesk-ticket-service) | Java / Spring Boot |
+| Auth Service | [i27-helpdesk-auth-service](https://github.com/Manojsabbithi/i27-helpdesk-auth-service) | Java / Spring Boot |
+| UI | [i27-helpdesk-ui](https://github.com/Manojsabbithi/i27-helpdesk-ui) | TypeScript / Next.js |
+| Notification Service | [i27-helpdesk-notification-service](https://github.com/Manojsabbithi/i27-helpdesk-notification-service) | Python / FastAPI |
+| Comment Service | [i27-helpdesk-comment-service](https://github.com/Manojsabbithi/i27-helpdesk-comment-service) | Python / FastAPI |
+
 ## AWS Services
 
 The current implementation uses:
