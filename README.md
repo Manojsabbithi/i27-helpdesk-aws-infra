@@ -280,8 +280,39 @@ Implemented and verified:
 - CloudTrail audit logging
 - AWS budget guardrails
 - automated daily startup, status, and shutdown workflows
+- automated live-environment smoke testing
 
-The remaining work is primarily project documentation, architecture presentation, automated smoke testing, and portfolio/demo polish.
+The remaining work is primarily final documentation and portfolio/demo polish.
+
+## Automated Smoke Testing
+
+A read-only smoke test validates the live AWS environment after startup:
+
+```bash
+./scripts/smoke-test.sh
+```
+
+The smoke test verifies:
+
+- runtime configuration is available,
+- the public UI is reachable through the Application Load Balancer,
+- Gateway health and readiness endpoints return HTTP 200,
+- the Kubernetes API and application namespace are reachable,
+- all EKS worker nodes are Ready,
+- all application deployments are Available,
+- application pods are in healthy states,
+- all containers inside Running pods are Ready.
+
+The script exits with a non-zero status if any validation fails, making it useful for operational checks and future CI/CD integration.
+
+A successful validation currently produces:
+
+```text
+Passed: 9
+Failed: 0
+
+SMOKE TEST PASSED
+```
 
 ## Daily Environment Operations
 
