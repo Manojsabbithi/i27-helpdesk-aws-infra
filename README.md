@@ -8,6 +8,10 @@ This repository focuses on the **DevOps and platform engineering implementation*
 
 The project demonstrates how an existing multi-service application can be taken from source repositories to a working AWS environment using infrastructure as code, configuration management, containerization, Kubernetes, CI/CD, security hardening, monitoring, and cost-aware operational automation.
 
+## Architecture
+
+See the detailed [AWS Architecture](architecture/aws-architecture.md) covering runtime traffic flow, CI/CD, infrastructure provisioning, security, monitoring, and operational controls.
+
 ## Goal
 
 Build a production-inspired, portfolio-grade AWS DevOps platform that can:
