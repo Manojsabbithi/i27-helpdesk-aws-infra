@@ -12,6 +12,10 @@ The project demonstrates how an existing multi-service application can be taken 
 
 See the detailed [AWS Architecture](architecture/aws-architecture.md) covering runtime traffic flow, CI/CD, infrastructure provisioning, security, monitoring, and operational controls.
 
+## Demo Runbook
+
+For a repeatable 5-10 minute walkthrough, see the [AWS DevOps Demo Runbook](docs/demo-runbook.md).
+
 ## Goal
 
 Build a production-inspired, portfolio-grade AWS DevOps platform that can:
